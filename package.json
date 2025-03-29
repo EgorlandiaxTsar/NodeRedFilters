@@ -1,0 +1,15 @@
+{
+    "name": "@egorgoncharov/filters",
+    "version": "1.0.0",
+    "description": "Library that includes essential filters: Kalman filter, EMA filter, SMA filter and median filter",
+    "dependencies": {},
+    "keywords": ["node-red", "kalman", "kalman-filter", "ema", "ema-filter", "sma", "ma", "sma-filter", "ma-filter", "median", "median-filter", "filters", "filter", "essential-filters"],
+    "node-red": {
+        "nodes": {
+            "kalman-filter": "kalman/kalman-filter.js",
+            "ema-filter": "ema/ema-filter.js",
+            "sma-filter": "sma/sma-filter.js",
+            "median-filter": "median/median-filter.js"
+        }
+    }
+}

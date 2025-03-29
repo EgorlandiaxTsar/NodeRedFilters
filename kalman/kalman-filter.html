@@ -1,0 +1,77 @@
+<script type="text/javascript">
+    RED.nodes.registerType('kalman-filter', {
+        category: 'filters',
+        defaults: {
+            name: {
+                value: '',
+                required: false
+            },
+            eMea: {
+                value: 1.0,
+                required: true,
+                validate: RED.validators.number()
+            },
+            eEst: {
+                value: 1.0,
+                required: true,
+                validate: RED.validators.number()
+            },
+            q: {
+                value: 0.01,
+                required: true,
+                validate: RED.validators.number()
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        color: '#D8BFD8',
+        paletteLabel: 'kalman filter',
+        label: function() {
+            return this.name || 'kalman filter';
+        },
+        labelStyle: function() {
+            return this.name ? 'node_label_italic' : '';
+        },
+        icon: 'font-awesome/fa-filter'
+    })
+</script>
+<script type="text/html" data-template-name="kalman-filter">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag" style="padding-right: 5px;"></i>Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-eMea"><i class="fa fa-arrows-h" style="padding-right: 5px;"></i>Measurement uncertainty (eMea)</label>
+        <input type="text" id="node-input-eMea">
+    </div>
+    <div class="form-row">
+        <label for="node-input-eEst"><i class="fa fa-arrows-h" style="padding-right: 5px;"></i>Estimation uncertainty (eEst)</label>
+        <input type="text" id="node-input-eEst">
+    </div>
+    <div class="form-row">
+        <label for="node-input-q"><i class="fa fa-percent" style="padding-right: 5px;"></i>Process variance (q)</label>
+        <input type="text" id="node-input-q">
+    </div>
+</script>
+<script type="text/markdown" data-help-name="kalman-filter">
+Simple kalman filter, used to remove noise from sensors outputs.
+
+### Inputs
+
+: payload (number) : number to filter
+: eMea    (number) : _optional_ `msg.eMea`
+: eEst    (number) : _optional_ `msg.eEst`
+: q       (number) : _optional_ `msg.q`
+: *eMea*  (number) : Measurement uncertainty - how much do we expect to our measurement vary
+: *eEst*  (number) : Estimation uncertainty - can be initilized with the same value as eMea since the kalman filter will adjust its value, but can also be initialized with another value.
+: *q*     (number) : Process variance - usually a small number between 0.001 and 1. This parameter indicates how fast your measurement moves. Recommended 0.01. Should be tunned to your needs.
+
+### Outputs
+
+1. Standard output:
+: payload (number) : filtered value
+
+### Details
+
+As you can see, you can set parameters in 2 ways: or by adjusting them with the node-red interface, or by passing them in the `msg` object. You should use interface adjustment when your values are fixed and you don't have to change them. However, if you want to change those values dynamically, through code (e.g a `function` node), you can pass them in the `msg` object and this values will ovverride previous ones. This functionality is really useful when, for example, you have a web interface where you can edit kalman filter parameters and, instead of reloading all nodes to set new parameters, you just have to write a function that passes the updated values in the `msg` object dynamically.
+</script>

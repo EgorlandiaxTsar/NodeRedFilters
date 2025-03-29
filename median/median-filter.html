@@ -1,0 +1,37 @@
+<script type="text/javascript">
+    RED.nodes.registerType('median-filter', {
+        category: 'filters',
+        defaults: {
+            name: {
+                value: '',
+                required: false
+            },
+            size: {
+                value: 10,
+                required: true,
+                validate: RED.validators.number()
+            }
+        },
+        inputs: 1,
+        outputs: 1,
+        color: '#D8BFD8',
+        paletteLabel: 'median filter',
+        label: function() {
+            return this.name || 'median filter';
+        },
+        labelStyle: function() {
+            return this.name ? 'node_label_italic' : '';
+        },
+        icon: 'font-awesome/fa-filter'
+    });
+</script>
+<script type="text/html" data-template-name="median-filter">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag" style="padding-right: 5px;"></i>Name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-size"><i class="fa fa-arrows-h" style="padding-right: 5px;"></i>Size</label>
+        <input type="text" id="node-input-size">
+    </div>
+</script>
